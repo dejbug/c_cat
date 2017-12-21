@@ -1,0 +1,5 @@
+*.exe
+*.o
+c_cat.tab.c
+c_cat.yy.c
+c_cat.tab.h
