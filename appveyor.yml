@@ -6,7 +6,9 @@ max_jobs: 1
 
 install:
   - cmd: SET MINGW_DIR=C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1
-  - cmd: SET PATH=%MINGW_DIR%\mingw32\bin;%PATH%
+  - cmd: SET FLEX_DIR=C:\ProgramData\chocolatey\lib
+  - cmd: SET PATH=%MINGW_DIR%\mingw32\bin;%FLEX_DIR%;%PATH%
+  - cmd: cinst winflexbison
 
 before_build:
   - cmd: mingw32-make --version | head -1
