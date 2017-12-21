@@ -6,8 +6,8 @@ max_jobs: 1
 
 install:
   - cmd: cinst winflexbison
-  - cmd: COPY C:\ProgramData\chocolatey\lib\win_flex.exe flex.exe
-  - cmd: COPY C:\ProgramData\chocolatey\lib\win_bison.exe bison.exe
+  - cmd: COPY C:\ProgramData\chocolatey\lib\winflexbison\tools\win_flex.exe flex.exe
+  - cmd: COPY C:\ProgramData\chocolatey\lib\winflexbison\tools\win_bison.exe bison.exe
   - cmd: SET MINGW_DIR=C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1
   - cmd: SET PATH=%MINGW_DIR%\mingw32\bin;%PATH%
 
