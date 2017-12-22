@@ -32,6 +32,16 @@ CXXFLAGS += -Wno-write-strings
 LDFLAGS := -Wl,--subsystem=console
 LDLIBS :=
 
+deploy/pass_1.exe : build/pass_1.o build/utils.o | deploy ; $(call LINK,$@,$^)
+build/pass_1.o : build/pass_1.yy.cpp | build ; $(call COMPILE,$@,$^)
+build/pass_1.yy.cpp : src/pass_1/pass_1.l | build ; $(FLEX) -o $@ $<
+
+build/utils.o : src/utils.cpp src/utils.hpp | build ; $(call COMPILE,$@,$^)
+
+.PHONY : run1
+run1 : deploy/pass_1.exe ; @$< src/test.cpp
+
+
 deploy/c_cat.exe : build/c_cat.tab.o build/c_cat.yy.o build/buffer.o build/escapes.o | deploy ; $(call LINK,$@,$^)
 
 build : ; $(call CREATE_TREE,$@)
