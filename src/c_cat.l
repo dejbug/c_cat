@@ -1,7 +1,7 @@
 %option nodefault
 %option noyywrap
 
-%x _ESC _ESCX _ESCU
+%x _ESC_N
 %x _CMT_L _CMT_B
 %x _STR _STR_ESC _STR_ESCX
 
@@ -22,15 +22,20 @@ static void on_STR_ESC_3();
 
 %%
 
+"\\"\r?\n { }
+
 "//" { BEGIN(_CMT_L); }
+<_CMT_L>"\\"\r?\n { }
 <_CMT_L>[^\r\n]* { BEGIN(INITIAL); yylval.s = yytext; return CMT_L; }
 <_CMT_L>[\r\n] { BEGIN(INITIAL); yylval.s = ""; return CMT_L; }
 
 "/\*" { BEGIN(_CMT_B); buffer.reset(); }
+<_CMT_B>"\\"\r?\n { }
 <_CMT_B>"\*/" { BEGIN(INITIAL); yylval.s = buffer.get(); return CMT_B; }
 <_CMT_B>.|[\r\n] { buffer.putc(*yytext); }
 
 ("u8"|"u"|"U"|"L")?\" { BEGIN(_STR); buffer.reset(); }
+<_STR>"\\"\r?\n { }
 <_STR>[^"\\] { buffer.putc(*yytext); }
 <_STR>"\"" { BEGIN(INITIAL); yylval.s = buffer.get(); return STR; }
 <_STR>"\\" { BEGIN(_STR_ESC); }

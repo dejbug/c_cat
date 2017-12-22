@@ -1,5 +1,5 @@
 *.exe
 *.o
-c_cat.tab.c
-c_cat.yy.c
-c_cat.tab.h
+c_cat.tab.cpp
+c_cat.yy.cpp
+c_cat.tab.hpp
